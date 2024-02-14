@@ -71,7 +71,7 @@ class PlaceTest extends TestCase
         //Lògica del test
 
         $response = $this->get('/api/places');
-        $response->assertOk();
+        $response->assertOk()->assertStatus(200);
     }
 
 
@@ -103,7 +103,7 @@ class PlaceTest extends TestCase
         // Cridar servei web de l'API
         $response = $this->postJson("/api/places", self::$invalidData);
         // TODO Revisar errors de validació
-        $params = ['name', 'description', 'upload', 'latitude', 'longitude'   ,];
+        $params = ['name', 'description', 'upload', 'latitude', 'longitude'];
 
         $response->assertInvalid($params);
 
