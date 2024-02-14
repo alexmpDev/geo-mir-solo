@@ -105,7 +105,7 @@ class FileController extends Controller
         return response()->json([
             'success' => true,
             'data'    => $file
-        ], 200);
+        ], 201);
     }
 
     public function update_workaround(Request $request, $id)
