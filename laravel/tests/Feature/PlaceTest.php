@@ -147,8 +147,6 @@ class PlaceTest extends TestCase
     }
 
 
-
-
     public function test_places_last()
     {
         // Eliminem l'usuari al darrer test

@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\File;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isEmpty;
-
 class FileController extends Controller
 {
     public function index()

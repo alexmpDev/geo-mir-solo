@@ -84,19 +84,63 @@ class PlaceController extends Controller
         
     }
 
-    public function show(Place $place)
+    public function show(string $placeID)
     {
+        $place = Place::find($placeID);
         return response()->json([
             'success' => true,
             'data'    => $place
         ], 200); 
     }
 
-    public function favorite(Place $place) 
+    public function update(Request $request, string $placeID)
+    {
+        $place = Place::find($placeID);
+        // Validar dades del formulari
+        $validatedData = $request->validate([
+            'name'        => 'required',
+            'description' => 'required',
+            'upload'      => 'nullable|mimes:gif,jpeg,jpg,png,mp4|max:2048',
+            'latitude'    => 'required',
+            'longitude'   => 'required',
+        ]);
+        
+        // Obtenir dades del formulari
+        $name        = $request->get('name');
+        $description = $request->get('description');
+        $upload      = $request->file('upload');
+        $latitude    = $request->get('latitude');
+        $longitude   = $request->get('longitude');
+
+        // Desar fitxer (opcional)
+        if (is_null($upload) || $place->file->diskSave($upload)) {
+            // Actualitzar dades a BD
+            \Log::debug("Updating DB...");
+            $place->name        = $name;
+            $place->description = $description;
+            $place->latitude    = $latitude;
+            $place->longitude   = $longitude;
+            $place->save();
+            \Log::debug("DB storage OK");
+            // Patró PRG amb missatge d'èxit
+            return response()->json([
+                'success' => true,
+                'data'    => $place
+            ], 200); 
+        } else {
+            // Patró PRG amb missatge d'error
+            return response()->json([
+                'success' => false,
+                'message' => 'arxiu no trobat'
+            ], 404);
+        }
+    }
+
+    public function favorite(string $placeID) 
     {
         $fav = Favorite::create([
             'user_id'  => (auth()->user()->id) ? : 1,
-            'place_id' => $place->id
+            'place_id' => $placeID
         ]);
 
         if ($fav){
@@ -112,13 +156,13 @@ class PlaceController extends Controller
         };
     }
 
-    public function unfavorite(Place $place) 
+    public function unfavorite(string $placeID) 
     {
 
         $fav = Favorite::where([
             
             ['user_id',  '=', (auth()->user()->id) ? : 1],
-            ['place_id', '=', $place->id],
+            ['place_id', '=', $placeID],
         ])->first();
         
         $fav->delete();

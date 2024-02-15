@@ -40,7 +40,8 @@ Route::controller(TokenController::class)->group(function(){
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('places', [PlaceController::class, 'index']);
     Route::post('places', [PlaceController::class, 'store']);
-    Route::post('places/show', [PlaceController::class, 'show']);
+    Route::post('places/show/{id}', [PlaceController::class, 'show']);
+    Route::post('places/update/{id}', [PlaceController::class, 'update']);
     Route::post('/places/{place}/favs', [PlaceController::class, 'favorite']);
     Route::delete('/places/{place}/favs', [PlaceController::class, 'unfavorite']);
 });
