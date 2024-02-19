@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
+use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TokenController;
 
 
@@ -35,3 +36,14 @@ Route::controller(TokenController::class)->group(function(){
         Route::post('register', [TokenController::class, 'register']);
     });
 });
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('posts', [PostController::class, 'index']);
+    Route::post('posts', [PostController::class, 'store']);
+    Route::post('posts/show/{id}', [PostController::class, 'show']);
+    Route::post('posts/update/{id}', [PostController::class, 'update']);
+    Route::post('posts/{id}/like', [PostController::class, 'like']);
+    Route::delete('posts/{id}/unlike', [PostController::class, 'unlike']);
+});
+
+
