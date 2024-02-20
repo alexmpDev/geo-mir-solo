@@ -55,6 +55,27 @@ class Place extends Model
         return $this->favoritedByUser($user);
     }
 
+    public function reviewed()
+    {
+        return $this->belongsToMany(User::class, 'review');
+    }
+    
+    public function reviewedByUser(User $user)
+    {
+        $count = Review::where([
+            ['user_id',  '=', $user->id],
+            ['place_id', '=', $this->id],
+        ])->count();
+
+        return $count > 0;
+    }
+
+    public function reviewedByAuthUser()
+    {
+        $user = auth()->user();
+        return $this->reviewedByUser($user);
+    }
+
     public function visibility()
     {
         return $this->belongsTo(Visibility::class);

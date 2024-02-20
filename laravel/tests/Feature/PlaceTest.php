@@ -118,7 +118,7 @@ class PlaceTest extends TestCase
     {
         Sanctum::actingAs(new User(self::$testUser));
         // Cridar servei web de l'API
-        $response = $this->postJson("/api/places/show/1");
+        $response = $this->get("/api/places/show/1");
         // Revisar que no hi ha errors de validació
         
         $response->assertJsonFragment(['success' => true]);

@@ -71,6 +71,39 @@
             <p>{{ $numFavs . " " . __('favorites') }}</p>
             @include('partials.buttons-favs')
         </div>
+        <form method="POST" action="{{ route('places.review', $place->id) }}">
+            @csrf
+            <div>
+                <x-input-label for="message" :value="__('Message')" />
+                <x-textarea name="message" id="message" class="block mt-1 w-full" :value="old('description')" />
+            </div>
+            <div class="mt-8">
+                <x-primary-button>
+                    {{ __('Create') }}
+                </x-primary-button>
+                <x-secondary-button type="reset">
+                    {{ __('Reset') }}
+                </x-secondary-button>
+
+            </div>
+        </form>
+        @if ($listMessages != null)
+            <div class="bg-gray-100 p-4 rounded-lg">
+                @foreach ($listMessages as $message)
+                <form action="{{ route('places.review.delete', $message->place_id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <p class="text-gray-800">{{$message->message}}</p>
+                        @if ($message->user_id == auth()->user()->id)
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded mt-2">Eliminar Comentario</button>
+                        @endif
+                    </div>
+                </form>
+                @endforeach
+            </div>
+        @endif
+    
     @endsection
 </x-columns>
 @endsection

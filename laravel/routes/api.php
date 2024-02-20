@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PlaceController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TokenController;
 
 
@@ -50,10 +51,11 @@ Route::middleware('auth:sanctum')->group(function(){
 
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('places', [PlaceController::class, 'index']);
-    Route::post('places', [PlaceController::class, 'store']);
-    Route::post('places/show/{id}', [PlaceController::class, 'show']);
-    Route::post('places/update/{id}', [PlaceController::class, 'update']);
-    Route::post('/places/{place}/favs', [PlaceController::class, 'favorite']);
-    Route::delete('/places/{place}/favs', [PlaceController::class, 'unfavorite']);
+    Route::apiResource('places', PlaceController::class);
+    Route::post('places/{place}/favs', [PlaceController::class, 'favorite']);
+    Route::delete('places/{place}/favs', [PlaceController::class, 'unfavorite']);
+    Route::post('places/{place}/review', [ReviewController::class, 'review']);
+    Route::delete('places/{place}/review', [ReviewController::class, 'unReview']);
+    
+    Route::post('places/{place}', [PlaceController::class, 'update_workaround']);
 });

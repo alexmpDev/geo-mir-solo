@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Place;
 use App\Models\File;
 use App\Models\Favorite;
+use App\Models\Review;
 
 class PlaceController extends Controller
 {
@@ -37,12 +38,12 @@ class PlaceController extends Controller
         if ($search = $request->get('search')) {
             $collectionQuery->where('description', 'like', "%{$search}%");
         }
-        
+
         // Pagination
-        $places = $this->_pagination 
-            ? $collectionQuery->paginate(5)->withQueryString() 
+        $places = $this->_pagination
+            ? $collectionQuery->paginate(5)->withQueryString()
             : $collectionQuery->get();
-        
+
         return view("places.index", [
             "places" => $places,
             "search" => $search
@@ -75,7 +76,7 @@ class PlaceController extends Controller
             'latitude'    => 'required',
             'longitude'   => 'required',
         ]);
-        
+
         // Obtenir dades del formulari
         $name        = $request->get('name');
         $description = $request->get('description');
@@ -121,13 +122,18 @@ class PlaceController extends Controller
     public function show(Place $place)
     {
         // Count
+        $listMessages = Review::where('place_id', $place->id)->get();
+        $messages = [];
+        foreach ($listMessages as $review) {
+            $messages[] = $review;
+        }
         $place->loadCount('favorited');
-
         return view("places.show", [
             'place'   => $place,
             'file'    => $place->file,
             'author'  => $place->user,
             'numFavs' => $place->favorited_count,
+            'listMessages' => $messages
         ]);
     }
 
@@ -163,7 +169,7 @@ class PlaceController extends Controller
             'latitude'    => 'required',
             'longitude'   => 'required',
         ]);
-        
+
         // Obtenir dades del formulari
         $name        = $request->get('name');
         $description = $request->get('description');
@@ -231,7 +237,7 @@ class PlaceController extends Controller
      * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function favorite(Place $place) 
+    public function favorite(Place $place)
     {
         $fav = Favorite::create([
             'user_id'  => auth()->user()->id,
@@ -250,15 +256,15 @@ class PlaceController extends Controller
      * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
-    public function unfavorite(Place $place) 
+    public function unfavorite(Place $place)
     {
         $fav = Favorite::where([
             ['user_id',  '=', auth()->user()->id],
             ['place_id', '=', $place->id],
         ])->first();
-        
+
         $fav->delete();
-        
+
         return redirect()->back()
             ->with('success', __(':resource successfully deleted', [
                 'resource' => __('Favorite')

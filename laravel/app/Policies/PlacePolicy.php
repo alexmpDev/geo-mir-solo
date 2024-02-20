@@ -80,4 +80,17 @@ class PlacePolicy
     {
         return $user->isPublisher() && $place->favoritedByUser($user);
     }
+
+    public function review(User $user, Place $place): bool
+    {
+        return $user->isPublisher() && !$place->favoritedByUser($user);
+    }
+
+    /**
+     * Determine whether the user can unfavorite the model.
+     */
+    public function unReview(User $user, Place $place): bool
+    {
+        return $user->isPublisher() && $place->favoritedByUser($user);
+    }
 }
