@@ -2,8 +2,10 @@
 
 namespace App\Policies;
 
+use App\Models\Comments;
 use App\Models\Post;
 use App\Models\User;
+use Egulias\EmailValidator\Parser\Comment;
 use Illuminate\Auth\Access\Response;
 
 class PostPolicy
@@ -80,4 +82,10 @@ class PostPolicy
     {
         return $user->isPublisher() && $post->likedByUser($user);
     }
+
+    // public function comments(User $user, Post $post, Comments $comments): bool
+    // {
+    //     return $user->isPublisher()&& $post->likedByUser($user);
+    //     // %% $comments->commentByUser($comments)
+    // }
 }

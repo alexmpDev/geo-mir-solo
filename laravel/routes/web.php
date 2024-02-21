@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ReviewController;
 use App\Models\Role;
+use Egulias\EmailValidator\Parser\Comment;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +70,17 @@ Route::controller(PostController::class)->group(function () {
         ->name('posts.like');
     Route::delete('/posts/{post}/likes', 'unlike')
         ->name('posts.unlike');
+
 });
+Route::controller(CommentController::class)->group(function () {
+    Route::post('/posts/{post}/comments', 'comments')
+        ->name('posts.comments');
+    Route::delete('/posts/{post}/comments', 'delcomments')
+        ->name('posts.comments.delete');
+    
+
+});
+
 
 // Places
 // NOTE: PlacePolicy with authorizeResource helper and can middleware

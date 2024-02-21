@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -116,6 +117,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $listComments = Comments::where('post_id', $post->id)->get();
+        $message=[];
+        foreach ($listComments as $comments) {
+            $message[] = $comments;
+        }
         // Count
         $post->loadCount('liked');
 
@@ -124,6 +130,7 @@ class PostController extends Controller
             'file'     => $post->file,
             'author'   => $post->user,
             'numLikes' => $post->liked_count,
+            'listComments' => $message,
         ]);
     }
 
