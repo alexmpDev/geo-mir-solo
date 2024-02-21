@@ -131,17 +131,6 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     $post = "???";
-    //     $this->authorize($post);
-
-    //     return view("posts.edit", [
-    //         'post'   => $post,
-    //         'file'   => $post->file,
-    //         'author' => $post->user,
-    //     ]);
-    // }
     /**
      * Update the specified resource in storage.
      *
@@ -281,5 +270,9 @@ class PostController extends Controller
             ]));
     }
 
+    public function update_workaround(Request $request, $id)
+    {
+        return $this->update($request, $id);
+    }
 
 }

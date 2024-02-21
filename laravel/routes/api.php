@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TokenController;
-
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,12 +38,14 @@ Route::controller(TokenController::class)->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('posts', [PostController::class, 'index']);
-    Route::post('posts', [PostController::class, 'store']);
-    Route::post('posts/show/{id}', [PostController::class, 'show']);
-    Route::post('posts/update/{id}', [PostController::class, 'update']);
+    Route::get('posts/comments', [CommentController::class, 'index']);
+    Route::apiResource('posts', PostController::class);
     Route::post('posts/{id}/like', [PostController::class, 'like']);
     Route::delete('posts/{id}/unlike', [PostController::class, 'unlike']);
+    Route::post('posts/{id}/comments', [CommentController::class, 'comments']);
+    Route::delete('posts/{id}/delcomments', [CommentController::class, 'delcomments']);
+
+    Route::post('posts/{post}', [PostController::class, 'update_workaround']);
 });
 
 

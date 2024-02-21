@@ -67,6 +67,36 @@
             <p>{{ $numLikes . " " . __('likes') }}</p>
             @include('partials.buttons-likes')
         </div>
+        <form method="POST" action="{{ route('posts.comments', $post->id) }}">
+            @csrf
+            <div class="mb-4">
+                <x-input-label for="comments" :value="__('Message')"/>
+                <textarea name="comments" id="comments" rows="3" class="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200"></textarea>
+            </div>
+            <div class="mb-4">
+                <x-primary-button>
+                    {{__('Create') }}
+                </x-primary-button>
+            </div>
+        </form>
+        @if ($listComments != null)
+            <div class="">
+                @foreach ($listComments as $message)
+                <form action="{{ route('posts.comments.delete', $message->post_id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <div>
+                        <p>{{$message->comments}}</p>
+                        @if ($message->user_id == auth()->user()->id)
+                            <button type="submit">Eliminar comentario</button>
+                        @endif
+                    </div>
+                
+                </form>
+                @endforeach
+            </div>
+        @endif
+        
     @endsection
 </x-columns>
 @endsection

@@ -141,4 +141,18 @@ class PostTest extends TestCase
             'post_id' => 1, 
         ]);
     }
+
+    public function test_post_comments()
+    {
+        Sanctum::actingAs(new User(self::$testUserData));
+        $response = $this->postJson("/api/posts/2/comments", [
+            'comment' => 'Este es un comentario de prueba',
+        ]);
+        $response->assertStatus(201); 
+        $response->assertJsonStructure([
+            "success",
+            "data",
+            "comment",
+        ]);
+    }
 }
