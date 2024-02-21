@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TokenController;
 use App\Http\Controllers\Api\CommentController;
 use App\Models\Review;
+use PHPUnit\Framework\Attributes\PostCondition;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('posts', PostController::class);
     Route::post('posts/{id}/like', [PostController::class, 'like']);
     Route::delete('posts/{id}/unlike', [PostController::class, 'unlike']);
+    Route::post('/posts/{post}/comments', [CommentController::class, 'comments'])
+        ->name('posts.comments');
+    Route::delete('/posts/{post}/comments', [CommentController::class, 'delcomments'])
+        ->name('posts.comments.delete');
+
+    Route::post('posts/{post}', [PostController::class, 'update_workaround']);
 });
 
 
