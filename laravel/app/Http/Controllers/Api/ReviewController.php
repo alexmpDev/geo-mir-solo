@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
+
+    public function index() 
+    {
+
+        $review = Review::all();
+        return json_encode([
+            "success" => "true",
+            "data" => $review
+        ]);
+        
+    }
+
     public function review(Request $request, $placeID) 
     {
         $validatedData = $request->validate([

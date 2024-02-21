@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PlaceController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\TokenController;
-
+use App\Models\Review;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('places', PlaceController::class);
     Route::post('places/{place}/favs', [PlaceController::class, 'favorite']);
     Route::delete('places/{place}/favs', [PlaceController::class, 'unfavorite']);
+    Route::get('places/review', [ReviewController::class, 'index']);
     Route::post('places/{place}/review', [ReviewController::class, 'review']);
     Route::delete('places/{place}/review', [ReviewController::class, 'unReview']);
     
