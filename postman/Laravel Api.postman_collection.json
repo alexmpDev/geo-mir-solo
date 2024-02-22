@@ -1,0 +1,1006 @@
+{
+	"info": {
+		"_postman_id": "d543831f-061d-414b-9904-9d9a9a2a193c",
+		"name": "Laravel Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32449158",
+		"_collection_link": "https://pocoyo-space-1.postman.co/workspace/M07~8021b47a-327c-4ed5-8de6-9d6fe9262746/collection/32449158-d543831f-061d-414b-9904-9d9a9a2a193c?action=share&source=collection_link&creator=32449158"
+	},
+	"item": [
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "List Files",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/files"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Create file test 1\", function () {",
+									"    pm.response.to.be.json;",
+									"    pm.response.to.be.an(\"object\");",
+									"    pm.response.to.have.jsonBody(\"success\");",
+									"    pm.response.to.have.jsonBody(\"data\");",
+									"});",
+									"",
+									"pm.test(\"Create file test 2\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.have.any.keys(\"id\");",
+									"    pm.collectionVariables.set(\"FileID\", jsonData.data.id);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "upload",
+									"type": "file",
+									"src": "baixa.jpeg"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/files"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Files",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "upload",
+									"type": "file",
+									"src": "baixa.jpeg"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/files/{{FileID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Files",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/files/{{FileID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Files",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/files/{{FileID}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": "{{LocalHost}}/api/user"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Alex",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "alex2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1234.",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Register user test\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.any.keys(\"authToken\");",
+									"    pm.collectionVariables.set(\"authToken\", jsonData.authToken);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "alex2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Admin1234.",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "Comments",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{authToken}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "comment",
+											"value": "Hola me llamo andres",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{LocalHost}}/api/posts/1/comments"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Comments",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{authToken}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": "{{LocalHost}}/api/posts/1/comments"
+							},
+							"response": []
+						},
+						{
+							"name": "List Comments",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{authToken}}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": "{{LocalHost}}/api/posts/comments"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LIst Posts",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/posts"
+					},
+					"response": []
+				},
+				{
+					"name": "Store Posts",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "Andres",
+									"type": "text"
+								},
+								{
+									"key": "upload",
+									"type": "file",
+									"src": "baixa.jpeg"
+								},
+								{
+									"key": "latitude",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "12",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/posts"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{LocalHost}}/api/posts/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "Andres",
+									"type": "text"
+								},
+								{
+									"key": "upload",
+									"type": "file",
+									"src": "postman-cloud:///1eecc1d6-3778-4840-84b6-bd1083c6d110"
+								},
+								{
+									"key": "latitude",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "12",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/posts/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Like Post",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/posts/1/like"
+					},
+					"response": []
+				},
+				{
+					"name": "Unlike",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/posts/1/unlike"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{authToken}}"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": "{{LocalHost}}/api/places/review"
+							},
+							"response": []
+						},
+						{
+							"name": "Reviews",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{authToken}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "message",
+											"value": "Hola me llamo alex",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{LocalHost}}/api/places/1/review"
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteReview",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{authToken}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": "{{LocalHost}}/api/places/1/review"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List Places",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/places"
+					},
+					"response": []
+				},
+				{
+					"name": "Store Place",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Alex",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Es una prueba desde Postman",
+									"type": "text"
+								},
+								{
+									"key": "upload",
+									"type": "file",
+									"src": "baixa.jpeg"
+								},
+								{
+									"key": "latitude",
+									"value": "32.222",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "31.111",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/places"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Place",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{LocalHost}}/api/places/1",
+							"host": [
+								"{{LocalHost}}"
+							],
+							"path": [
+								"api",
+								"places",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Place",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Alex",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Es una prueba desde Postman update 2",
+									"type": "text"
+								},
+								{
+									"key": "upload",
+									"type": "file",
+									"src": "baixa.jpeg"
+								},
+								{
+									"key": "latitude",
+									"value": "32.222",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "31.111",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{LocalHost}}/api/places/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Favorite Place",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/places/1/favs"
+					},
+					"response": []
+				},
+				{
+					"name": "Unfavorite Place",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{authToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "{{LocalHost}}/api/places/1/favs"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "FileID",
+			"value": "2"
+		},
+		{
+			"key": "authToken",
+			"value": "x"
+		}
+	]
+}
