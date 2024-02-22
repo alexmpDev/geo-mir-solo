@@ -10,14 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class TokenController extends Controller
 {
-    public function user(Request $request){
-        $user = User::where('email', $request->user()->email)->first();
-     
-       return response()->json([
-           "success" => true,
-           "user"    => $request->user(),
-           "roles"   => [$user->role->name],
-       ]);
+    public function user(){
+        $user = User::all();
+        return json_encode([
+            "success" => "true",
+            "data" => $user
+        ]);
 
     }
 
