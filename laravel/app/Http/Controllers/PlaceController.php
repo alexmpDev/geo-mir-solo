@@ -275,14 +275,5 @@ class PlaceController extends Controller
             ]));
     }
 
-    public function getDynamicSEOData(): SEOData
-    {
-        return new SEOData(
-            title: $this->title,
-            description: $this->excerpt,
-            author: $this->author->fullName,
-        );
-    }
-
    
 }
