@@ -9,9 +9,13 @@ use App\Models\Place;
 use App\Models\File;
 use App\Models\Favorite;
 use App\Models\Review;
+use RalphJSmit\Laravel\SEO\Support\HasSEO;
+use App\Http\Controllers\SEOData;
 
 class PlaceController extends Controller
 {
+    use HasSEO;
+    
     private bool $_pagination = true;
 
     /**
@@ -270,4 +274,15 @@ class PlaceController extends Controller
                 'resource' => __('Favorite')
             ]));
     }
+
+    public function getDynamicSEOData(): SEOData
+    {
+        return new SEOData(
+            title: $this->title,
+            description: $this->excerpt,
+            author: $this->author->fullName,
+        );
+    }
+
+   
 }
